@@ -1,0 +1,24 @@
+#!/bin/bash
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --cc) 
+            pbpaste >> ~/dotfiles/.gmailctl/coldcallers.txt
+            echo "" >> ~/dotfiles/.gmailctl/coldcallers.txt
+            gmailctl apply -y
+            ;;
+        --us) 
+            pbpaste >> ~/dotfiles/.gmailctl/unsubscribed.txt
+            echo "" >> ~/dotfiles/.gmailctl/unsubscribed.txt
+            gmailctl apply -y
+            ;;
+        --ua) 
+            pbpaste >> ~/dotfiles/.gmailctl/unsolicited-applicants.txt
+            echo "" >> ~/dotfiles/.gmailctl/unsolicited-applicants.txt
+            gmailctl apply -y
+            ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
