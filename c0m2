@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Next version allows adding as param
+# Need to fix a bug where pbpaste goes into infinite loop
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --cc) 
+      if [[ -n $2 ]]; then
+        echo "$2" >> ~/dotfiles/.gmailctl/coldcallers.txt
+      else
+        pbpaste >> ~/dotfiles/.gmailctl/coldcallers.txt
+      fi
+      echo "" >> ~/dotfiles/.gmailctl/coldcallers.txt
+      gmailctl apply -y
+      ;;
+    --us) 
+      if [[ -n $2 ]]; then
+        echo "$2" >> ~/dotfiles/.gmailctl/unsubscribed.txt
+      else
+        pbpaste >> ~/dotfiles/.gmailctl/unsubscribed.txt
+      fi
+      echo "" >> ~/dotfiles/.gmailctl/unsubscribed.txt
+      gmailctl apply -y
+      ;;
+    --ua) 
+      if [[ -n $2 ]]; then
+        echo "$2" >> ~/dotfiles/.gmailctl/unsolicited-applicants.txt
+      else
+        pbpaste >> ~/dotfiles/.gmailctl/unsolicited-applicants.txt
+      fi
+      echo "" >> ~/dotfiles/.gmailctl/unsolicited-applicants.txt
+      gmailctl apply -y
+      ;;
+    --dg) 
+      if [[ -n $2 ]]; then
+        echo "$2" >> ~/dotfiles/.gmailctl/dmarc-group.txt
+      else
+        pbpaste >> ~/dotfiles/.gmailctl/dmarc-group.txt
+      fi
+      echo "" >> ~/dotfiles/.gmailctl/dmarc-group.txt
+      gmailctl apply -y
+      ;;
+
+    *) echo "Unknown parameter passed: $1"; exit 1 ;;
+  esac
+  shift 2
+done
